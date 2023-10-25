@@ -1,4 +1,4 @@
-## chimera-ui
+## grampus-ui
 
 - 基于Vue3、TypeScript、Element Plus、Vue Router、Pinia、Axios、Vite等开发的后台管理系统前端
 - 提供一套轻量级，方便后端人员快速开发前端页面的解决方案
