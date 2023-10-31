@@ -93,7 +93,7 @@ export const checkPermission = (permission: string[], key: string): boolean => {
  * 获取uuid
  */
 export const getUuid = (): string => {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
     const r = (Math.random() * 16) | 0,
       v = c == "x" ? r : (r & 0x3) | 0x8;
     return v.toString(16);
@@ -138,6 +138,21 @@ export const isURL = (s: string): boolean => {
  */
 export const isNumber = (s: string): boolean => {
   return /^\+?[1-9][0-9]*$/.test(s);
+};
+
+/**
+ * 时间戳格式化为字符串
+ * @param timestamp
+ */
+export const formatTimestamp = (timestamp: number): string => {
+  const date = new Date(timestamp);
+  const Y = date.getFullYear() + "-";
+  const M = (date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1) + "-";
+  const D = (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) + " ";
+  const h = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":";
+  const m = (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":";
+  const s = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+  return Y + M + D + h + m + s;
 };
 
 /**

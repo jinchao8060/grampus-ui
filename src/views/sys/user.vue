@@ -40,7 +40,11 @@
           <el-tag v-else size="small" type="success">正常</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="createDate" label="创建时间" sortable="custom" header-align="center" align="center" width="180"></el-table-column>
+      <el-table-column prop="createDate" label="创建时间" sortable="custom" header-align="center" align="center" width="180">
+        <template v-slot="scope">
+          {{ formatTimestamp(scope.row.createDate) }}
+        </template>
+      </el-table-column>
       <el-table-column label="操作" fixed="right" header-align="center" align="center" width="150">
         <template v-slot="scope">
           <el-button v-if="state.hasPermission('sys:user:update')" type="primary" link @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
@@ -58,6 +62,7 @@
 import useView from "@/hooks/useView";
 import { reactive, ref, toRefs } from "vue";
 import AddOrUpdate from "./user-add-or-update.vue";
+import { formatTimestamp } from "../../utils/utils";
 
 const view = reactive({
   getDataListURL: "/system/user/page",

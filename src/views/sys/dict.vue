@@ -27,7 +27,11 @@
       </el-table-column>
       <el-table-column prop="sort" label="排序" sortable="custom" header-align="center" align="center"></el-table-column>
       <el-table-column prop="remark" label="备注" header-align="center" align="center"></el-table-column>
-      <el-table-column prop="createDate" label="创建时间" sortable="custom" header-align="center" align="center" width="180"></el-table-column>
+      <el-table-column prop="createDate" label="创建时间" sortable="custom" header-align="center" align="center" width="180">
+        <template v-slot="scope">
+          {{ formatTimestamp(scope.row.createDate) }}
+        </template>
+      </el-table-column>
       <el-table-column label="操作" fixed="right" header-align="center" align="center" width="180">
         <template v-slot="scope">
           <el-button type="primary" link @click="showTypeList(scope.row)">字典配置</el-button>
@@ -51,6 +55,7 @@ import AddOrUpdate from "./dict-add-or-update.vue";
 import DictTypeList from "./dict-item.vue";
 import { IObject } from "@/types/interface";
 import { useRoute } from "vue-router";
+import { formatTimestamp } from "../../utils/utils";
 const route = useRoute();
 
 const dictDataVisible = ref(false);

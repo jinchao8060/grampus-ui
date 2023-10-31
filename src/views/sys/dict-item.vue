@@ -23,7 +23,11 @@
       <el-table-column prop="dictLabel" label="字典标签" header-align="center" align="center"></el-table-column>
       <el-table-column prop="sort" label="排序" sortable="custom" header-align="center" align="center"></el-table-column>
 <!--      <el-table-column prop="remark" label="备注" header-align="center" align="center"></el-table-column>-->
-      <el-table-column prop="createDate" label="创建时间" sortable="custom" header-align="center" align="center" width="180"></el-table-column>
+      <el-table-column prop="createDate" label="创建时间" sortable="custom" header-align="center" align="center" width="180">
+        <template v-slot="scope">
+          {{ formatTimestamp(scope.row.createDate) }}
+        </template>
+      </el-table-column>
       <el-table-column label="操作" fixed="right" header-align="center" align="center" width="150">
         <template v-slot="scope">
           <el-button v-if="state.hasPermission('sys:dict:update')" type="primary" link @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
@@ -41,6 +45,7 @@
 import useView from "@/hooks/useView";
 import { reactive, ref, toRefs } from "vue";
 import AddOrUpdate from "./dict-item-add-or-update.vue";
+import { formatTimestamp } from "../../utils/utils";
 
 const props = defineProps({
   dictId: {

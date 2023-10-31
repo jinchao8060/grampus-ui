@@ -35,8 +35,16 @@
       <el-table-column prop="requestIp" label="操作IP" header-align="center" align="center" show-overflow-tooltip></el-table-column>
       <el-table-column prop="userAgent" label="用户代理" header-align="center" align="center" width="150" show-overflow-tooltip></el-table-column>
       <el-table-column prop="classMethod" label="错误信息" header-align="center" align="center" width="150" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="requestStartTime" label="开始时间" sortable="custom" header-align="center" align="center" width="180"></el-table-column>
-      <el-table-column prop="requestEndTime" label="结束时间" sortable="custom" header-align="center" align="center" width="180"></el-table-column>
+      <el-table-column prop="requestStartTime" label="开始时间" sortable="custom" header-align="center" align="center" width="180">
+        <template v-slot="scope">
+          {{ formatTimestamp(scope.row.createDate) }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="requestEndTime" label="结束时间" sortable="custom" header-align="center" align="center" width="180">
+        <template v-slot="scope">
+          {{ formatTimestamp(scope.row.createDate) }}
+        </template>
+      </el-table-column>
     </el-table>
     <el-pagination :current-page="state.pageNum" :page-sizes="[10, 20, 50, 100]" :page-size="state.pageSize" :total="state.total" layout="total, sizes, prev, pager, next, jumper" @size-change="state.pageSizeChangeHandle" @current-change="state.pageCurrentChangeHandle"> </el-pagination>
   </div>
@@ -45,6 +53,7 @@
 <script lang="ts" setup>
 import useView from "@/hooks/useView";
 import { reactive, toRefs } from "vue";
+import { formatTimestamp } from "../../utils/utils";
 
 const view = reactive({
   getDataListURL: "/system/log/operation/page",

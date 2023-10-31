@@ -11,7 +11,11 @@
       <el-table-column prop="requestParams" label="请求参数" header-align="center" align="center" width="150" :show-overflow-tooltip="true"></el-table-column>
       <el-table-column prop="ip" label="操作IP" header-align="center" align="center"></el-table-column>
       <el-table-column prop="userAgent" label="用户代理" header-align="center" align="center" width="150" :show-overflow-tooltip="true"></el-table-column>
-      <el-table-column prop="createDate" label="创建时间" sortable="custom" header-align="center" align="center" width="180"></el-table-column>
+      <el-table-column prop="createDate" label="创建时间" sortable="custom" header-align="center" align="center" width="180">
+        <template v-slot="scope">
+          {{ formatTimestamp(scope.row.createDate) }}
+        </template>
+      </el-table-column>
       <el-table-column label="操作" fixed="right" header-align="center" align="center" width="150">
         <template v-slot="scope">
           <el-button type="primary" link @click="infoHandle(scope.row.errorInfo)">异常信息</el-button>
@@ -26,6 +30,7 @@
 import useView from "@/hooks/useView";
 import { reactive, toRefs } from "vue";
 import { ElMessageBox } from "element-plus";
+import { formatTimestamp } from "../../utils/utils";
 
 const view = reactive({
   getDataListURL: "/system/log/error/page",
